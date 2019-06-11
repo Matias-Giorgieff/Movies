@@ -1,0 +1,18 @@
+
+  <h3>Iniciar Sesion</h3>
+
+  <p *ngIf="operation == 'register'">Ya tienes cuenta? <button (click)="operation = 'login'" >Logeate</button></p>
+  <p *ngIf="operation == 'login'">No tienes cuenta? <button (click)="operation = 'register'" >Registrate</button></p>
+  <div>
+    <input [(ngModel)]="email" type="email" placeholder="Ingrese Email">
+  </div>
+  <div>
+    <input [(ngModel)]="password" type="password" placeholder="Ingrese password">
+  </div>
+  <div>
+    <input [(ngModel)]="nick" *ngIf="operation == 'register'" type="text" placeholder="Ingrese Nick">
+  </div>
+  <div>
+    <button (click)="login()" *ngIf="operation == 'login'">Iniciar Sesion</button>
+    <button (click)="register()" *ngIf="operation == 'register'">Registrarme</button>
+  </div>

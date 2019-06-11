@@ -1,0 +1,21 @@
+  <div *ngIf="user">
+    <div>
+      <label>Nick</label>
+      <input [(ngModel)]="user.nick" class="form-control" />
+    </div>
+    <div>
+      <label> Subnick</label>
+      <input [(ngModel)]="user.subnick" type="text" class="form-control" />
+    </div>
+    <div>
+      <label fixed>Edad</label>
+      <input [(ngModel)]="user.age" type="number" class="form-control" />
+    </div>
+    <div>
+      <label fixed>Email</label>
+      <input [(ngModel)]="user.email" type="email" disabled class="form-control" />
+    </div>
+    <div>
+    
+    <button (click)="saveSettings()" >Guardar</button>
+  </div>
