@@ -20,8 +20,7 @@ import { AuthenticationGuard } from './services/authentication.guard';
 
 import { HttpClientModule } from '@angular/common/http';
 import { GeneroService } from './services/genero.service';
-
-
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
@@ -48,6 +47,7 @@ const appRoutes: Routes = [
 //    AngularFireStoreModule,
     AngularFireDatabaseModule,
     HttpClientModule,
+    AngularFontAwesomeModule,
   ],
   providers: [GeneroService],
   bootstrap: [AppComponent]

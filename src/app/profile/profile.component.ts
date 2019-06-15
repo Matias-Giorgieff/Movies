@@ -19,26 +19,26 @@ export class ProfileComponent implements OnInit {
     //this.friendId = this.activatedRoute.snapshot.params['uid'];
     this.authenticationService.getStatus().subscribe(
       (status) => {
-        this.userServices.getUserById(status.uid).valueChanges().subscribe(
-          (data: User) => {
-            this.user = data;
-            console.log(this.user);
-            
-          },
-          (error) => {
-            console.log(error);
-            
-          }
-        );
+        if(status.uid){
+          this.userServices.getUserById(status.uid).valueChanges().subscribe(
+            (data: User) => {
+              this.user = data;
+              console.log(this.user);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
       },
       (error) => {
         console.log(error);
-        
       }
     );
   }  
     
   ngOnInit() {
+    
   }
   saveSettings(){
     this.userServices.editUser(this.user).then(
@@ -52,5 +52,4 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
 }

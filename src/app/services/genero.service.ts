@@ -9,7 +9,7 @@ export class GeneroService {
 
   constructor( private httpClient: HttpClient ) { };
 
-  obtenerPeliculasPorGenero(): Observable<any> {
-    return this.httpClient.get("http://api.conectati.cl/index.php/movieRest/genero/animation");
+  obtenerPeliculasPorGenero(genero: string): Observable<any> {
+    return this.httpClient.get("http://api.conectati.cl/index.php/movieRest/genero/"+genero);
   }
 }

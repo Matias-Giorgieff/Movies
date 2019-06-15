@@ -21,5 +21,5 @@ export class UserService {
   }
   editUser(user){
     return this.angularFireDatabase.object('/users/' + user.uid ).update(user);
-  } 
+  }
 }

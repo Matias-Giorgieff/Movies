@@ -1,35 +1,102 @@
-<input type="text" placeholder="Buscar Pelicula" [(ngModel)]="query"/>
 
-<br />
-<a (click)='logout()'>Logout</a>
-
-
-<div *ngFor="let tempo of peliculas.data.movies">
-  <div>
-    <h3>{{tempo.title}}</h3>
-    <img  src="{{tempo.medium_cover_image}}" type="button" (click)="onOpenModal(tempo)" class="btn btn-primary" data-toggle="modal" data-target="#peliculaModal" />
-  </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="peliculaModal" tabindex="-1" role="dialog" aria-labelledby="peliculaModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="peliculaModalLabel">{{peliculaHtml.title}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<div *ngIf="estado == 'activo'">
+    <input type="text" placeholder="Buscar Pelicula" [(ngModel)]="query"/>
+    <br />
+    <div *ngIf="peliculasAnimation" class="primary-list">
+      <h3>Animacion</h3>
+      <div class="primaryPlaylist-list">
+        <div *ngFor="let tempo of peliculasAnimation.data.movies | search: query" class="primaryPlaylist-item">
+          <div *ngIf="tempo">  
+            <img  class="primaryPlaylistItem-image" src="{{tempo.medium_cover_image}}" type="button" (click)="onOpenModal(tempo)" data-toggle="modal" data-target="#peliculaModal" />
+            <h6 class="primaryPlaylistItem-title">{{tempo.title}}</h6>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <p>{{peliculaHtml.synopsis}}</p>
+    </div>
+
+
+    <div *ngIf="peliculasDrama" class="primary-list">
+      <h3>Drama</h3>
+      <div class="primaryPlaylist-list">
+        <div *ngFor="let tempo of peliculasDrama.data.movies | search: query" class="primaryPlaylist-item">
+            <img  class="primaryPlaylistItem-image" src="{{tempo.medium_cover_image}}" type="button" (click)="onOpenModal(tempo)" data-toggle="modal" data-target="#peliculaModal" />
+            <h6 class="primaryPlaylistItem-title">{{tempo.title}}</h6>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+
+
+    <div *ngIf="peliculasAction" class="primary-list">
+      <h3>Accion</h3>
+      <div class="primaryPlaylist-list">
+        <div *ngFor="let tempo of peliculasAction.data.movies | search: query" class="primaryPlaylist-item">
+            <img  class="primaryPlaylistItem-image" src="{{tempo.medium_cover_image}}" type="button" (click)="onOpenModal(tempo)" data-toggle="modal" data-target="#peliculaModal" />
+            <h6 class="primaryPlaylistItem-title">{{tempo.title}}</h6>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="peliculaFavoritos" class="primary-list">
+      <h3>Favoritos</h3>
+      <div class="primaryPlaylist-list">
+        <div *ngFor="let tempo of peliculaFavoritos | search: query" class="primaryPlaylist-item">
+            <img height="345" width="230" class="primaryPlaylistItem-image" src="{{tempo.Poster}}" type="button" (click)="onOpenModalFavorito(tempo)" data-toggle="modal" data-target="#eliminarFavoritosModal" />
+            <h6  class="primaryPlaylistItem-title">{{tempo.Title}}</h6>
+        </div>
+      </div>
+    </div>
+  
+<ng-container *ngIf="peliculaHtml">
+  <!-- Modal -->
+  <div class="modal fade" id="peliculaModal" tabindex="-1" role="dialog" aria-labelledby="peliculaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="peliculaModalLabel">{{peliculaHtml.title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{peliculaHtml.synopsis}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addFavoritos(peliculaHtml)">Agregar a Favoritos</button>
+        </div>
       </div>
     </div>
   </div>
+</ng-container>
+
+<ng-container *ngIf="eliminarFavoritosHTML">
+    <!-- Modal -->
+    <div class="modal fade" id="eliminarFavoritosModal" tabindex="-1" role="dialog" aria-labelledby="peliculaModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="peliculaModalLabel">{{eliminarFavoritosHTML.Title}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{eliminarFavoritosHTML.Plot}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteFavoritos(eliminarFavoritosHTML)">Eliminar de Favoritos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
 
+<div *ngIf="estado == 'inactivo'">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error!</h4>
+        <p>Su cuenta esta inactiva, favor activarla</p>
+      </div>
+</div>
 

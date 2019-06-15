@@ -1,18 +1,45 @@
 
-  <h3>Iniciar Sesion</h3>
 
-  <p *ngIf="operation == 'register'">Ya tienes cuenta? <button (click)="operation = 'login'" >Logeate</button></p>
-  <p *ngIf="operation == 'login'">No tienes cuenta? <button (click)="operation = 'register'" >Registrate</button></p>
-  <div>
-    <input [(ngModel)]="email" type="email" placeholder="Ingrese Email">
-  </div>
-  <div>
-    <input [(ngModel)]="password" type="password" placeholder="Ingrese password">
-  </div>
-  <div>
-    <input [(ngModel)]="nick" *ngIf="operation == 'register'" type="text" placeholder="Ingrese Nick">
-  </div>
-  <div>
-    <button (click)="login()" *ngIf="operation == 'login'">Iniciar Sesion</button>
-    <button (click)="register()" *ngIf="operation == 'register'">Registrarme</button>
+
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://cdn1.iconfinder.com/data/icons/wayfinding-system-basic-icon-set/512/cinema-512.png" id="icon" alt="User Icon" />
+      </div>
+      
+      <!-- Login Form -->
+          <h3>Iniciar Sesion</h3>
+          <label >Email address</label>
+        <div>
+          <input class="form-control" [(ngModel)]="email" type="email"  placeholder="Ingrese Email">
+          <small  class="form-text text-muted fadeIn third" >Nunca compartiremos su correo electrónico con nadie más.</small>
+        </div>
+        <label >Password</label>
+        <div>
+          <input class="form-control" [(ngModel)]="password" type="password"  placeholder="Ingrese password">
+        </div>
+        <label *ngIf="operation == 'register'" >Nick</label>
+        <div>
+          <input class="form-control" [(ngModel)]="nick" *ngIf="operation == 'register'" placeholder="Ingrese Nick">
+          <small *ngIf="operation == 'register'" class="form-text" >Proximamente podras agregar amigos y compartir peliculas con tu nick</small>
+        </div>
+        
+     
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+          <div>
+              <button (click)="login()" *ngIf="operation == 'login'" class="btn btn-primary">Iniciar Sesion</button>
+              <button (click)="register()" *ngIf="operation == 'register'" class="btn btn-primary">Registrarme</button>
+        
+              <button *ngIf="operation == 'register'" (click)="operation = 'login'" class="btn btn-primary">Logeate</button>
+              <button *ngIf="operation == 'login'" (click)="operation = 'register'" class="btn btn-primary">Registrate</button>
+            </div>
+      </div>
+  
+    </div>
   </div>
